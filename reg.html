@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Page</title>
+  <style>
+    *{
+      margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+    }
+    body{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      background:url('image.jpg')no-repeat;
+      background-size:cover;
+      background-position:center;
+      backdrop-filter:blur(5px);
+    }
+ .form-box{
+  width: 380px;
+  height: 500px;
+  position: relative;
+  margin: 6% auto;
+  background:transparent;
+  border:2px solid rgba(255, 252, 252, 0.2);
+  padding: 5px;
+  color:#f4f4f4;
+  backdrop-filter:blur(15px);
+  box-shadow:0 0 10px rgba(0,0,0,-2);
+ }
+ .button{
+  width: 100px;
+  margin: 35px auto;
+  position: relative;
+  box-shadow: 0 0 20px 9px #ff61241f;
+  border-radius: 30px;
+  text-align: center;
+
+ }
+ .toggle{
+  padding: 10px 30px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  outline: none;
+  position: relative;
+
+ }
+ #btn{
+  position: absolute;
+  width: 110px;
+  height: 100%;
+  background:linear-gradient(to right,#dc6706,#e69d55);
+  border-radius: 30px;
+  text-align:center;
+
+ }
+.input{
+  top: 180px;
+  position: absolute;
+  width: 280px;
+  transition: .5s;
+}
+.field{
+  width: 100%;
+  padding: 10px 0;
+  margin: 5px 0;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 1px solid #fbfafa;
+  outline: none;
+  background: transparent;
+}
+input::placeholder{
+  color:white;
+}
+
+.error{
+    color: rgb(245, 25, 131);
+    font-size: 13px;
+}
+.reg{
+  width: 85%;
+  padding: 10px 30px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background: linear-gradient(to right,#dc6706,#e69d55);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+
+}
+.check{
+  margin: 30px 10px 30px 0;
+}
+span{
+  color: #fdf3f3;
+  font-size: 12px;
+  bottom: 68px;
+  position: absolute;
+
+}
+#register{
+  left: 50px;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="form-box">
+    <div class="button">
+      <div id="btn"></div>
+      <button type="button" onclick="reg()" class="toggle">Register</button>
+    </div>
+    <form id="register" onsubmit="register()" class="input">
+      <input type="text"  class="field" id="username" placeholder="Enter User name" required>
+      <div class="error" id="usernameError"></div>
+      <input type="email" class="field" id="email" placeholder="Email Id" required>
+      <div class="error" id="emailerror"></div>
+
+      <input type="date" class="field" id="username"  required>
+      <input type="password" class="field" id="password" placeholder="Enter password" required>
+      <div class="error" id="passworderror"></div>
+
+      <input type="checkbox" class="check"><span>Remember Password</span>
+      <button type="button" class="reg" onclick="register()">Register</button>
+    </form>
+    
+  </div>
+</div>
+<script>
+  function register() {
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      if (!isusernamevalid(username)) {
+          displayError('usernameError', 'User name must have at least 3 characters');
+          return;
+      }
+
+      if (!isemailvalid(email)) {
+          displayError('emailerror', 'Invalid email address');
+          return;
+      }
+
+      if (!ispasswordvalid(password)) {
+          displayError('passworderror', 'Password must contain at least 8 characters and at least one special character');
+          return;
+      }
+
+      alert('Registered successfully!')
+
+      function isusernamevalid(username) {
+          return username.length >= 3;
+      }
+
+      function isemailvalid(email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+      }
+
+      function ispasswordvalid(password) {
+          const passwordRegex = /^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+          return passwordRegex.test(password);
+      }
+
+      function displayError(elementId, errorMessage) {
+          const errorElement = document.getElementById(elementId);
+          errorElement.innerText = errorMessage;
+      }
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+
+      window.location.href = "login.html";
+  }
+</script>
+</body>
+</html>
